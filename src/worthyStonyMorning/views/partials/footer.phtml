@@ -1,0 +1,31 @@
+<footer>
+    <div class="row">
+        <div class="col-lg-12">
+            <p>Door Patrick</p>
+        </div>
+    </div>
+</footer>
+
+</div>
+<!-- /.container -->
+
+<!-- JavaScript -->
+<script src="/public/js/jquery-1.10.2.js"></script>
+<script src="/public/js/bootstrap.js"></script>
+<script src="/public/js/jasny-bootstrap.min.js"></script>
+
+<?php
+if (isset($bottomJs)):
+    $tag = "<script>%s</script>";
+    if (is_array($bottomJs)):
+        foreach ($bottomJs as $script):
+            echo sprintf($tag, $script);
+        endforeach;
+    else:
+        echo sprintf($tag, $bottomJs);
+    endif;
+endif;
+?>
+</body>
+
+</html>

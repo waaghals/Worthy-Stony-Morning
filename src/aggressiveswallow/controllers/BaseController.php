@@ -12,17 +12,18 @@ use Aggressiveswallow\Helpers\Cart;
  *
  * @author Patrick
  */
-abstract class BaseController {
+abstract class BaseController
+{
 
     /**
      *
-     * @var \Aggressiveswallow\Tools\Session 
+     * @var \Aggressiveswallow\Tools\Session
      */
     protected $session;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->session = Container::make("session");
-        $this->initCart();
     }
 
     /**
@@ -31,11 +32,14 @@ abstract class BaseController {
      * @param array $arguments
      * @return mixed value of the called method
      */
-    public function callAction($actionName, array $arguments = array()) {
+    public function callAction($actionName, array $arguments = array())
+    {
         try {
             $reflection = new \ReflectionMethod($this, $actionName);
         } catch (\Exception $e) {
-            return new ErrorResponse(sprintf("Action \"%s\" does not exist.", $actionName), Response::HTTP_NOT_FOUND);
+            return new ErrorResponse(sprintf("Action \"%s\" does not exist.",
+                                             $actionName),
+                                             Response::HTTP_NOT_FOUND);
         }
 
         $pass = array();
@@ -55,14 +59,16 @@ abstract class BaseController {
         $actionResponse = $reflection->invokeArgs($this, $pass);
 
         if (!is_a($actionResponse, "Symfony\Component\HttpFoundation\Response")) {
-            $msg = sprintf("Did not receive a valid response from controller action: %s", $actionName);
+            $msg = sprintf("Did not receive a valid response from controller action: %s",
+                           $actionName);
             throw new \Exception($msg);
         }
 
         return $actionResponse;
     }
-    
-    private function initCart() {
+
+    private function initCart()
+    {
         $cart_name = Cart::SESSION_NAME;
 
         if (!$this->session->has($cart_name)) {
