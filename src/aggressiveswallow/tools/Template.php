@@ -49,7 +49,7 @@ class Template
         try {
             //Create local variables from our array of variables.
             extract($this->variables);
-            chdir(dirname($this->template));
+            //chdir(dirname($this->template)); Don't change to the tempate dir, this breaks autoloading
             ob_start();
 
             include $this->template;
