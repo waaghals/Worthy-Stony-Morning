@@ -1,0 +1,90 @@
+<?php
+
+use Aggressiveswallow\Helpers\buttonHelper as Button;
+
+/* @var $location \Aggressiveswallow\Models\Location */
+
+include VIEW_PATH . "partials/header.phtml";
+?>
+<ol class="breadcrumb">
+    <li><a href="/">Webmakelaar</a></li>
+    <li><a href="/cart/show/">Winkelwagen</a></li>
+    <li><a href="/cart/show/">Overzicht</a></li>
+</ol>
+<div class="row">
+    <div class="page-header">
+        <h1>Winkelwagen <small>Overzicht</small></h1>
+    </div>
+</div>
+<div class="row">
+
+    <?php
+    /* @var $cart \Aggressiveswallow\Helpers\Cart */
+
+    if (!$cart->isEmpty()):
+        ?>
+        <div class="col-xs-12 col-sm-6 col-md-8">
+            <table class = "table table-hover">
+                <thead>
+                    <tr>
+                        <th>Straat</th>
+                        <th>Plaats</th>
+                        <th>Postcode</th>
+                        <th>Wijk</th>
+                        <th colspan="2">Koopprijs</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach ($cart->getItems() as $product):
+                        /* @var $address \Aggressiveswallow\Models\Address */
+                        $address = $product->getAddress();
+
+                        $street = $address->getFullStreetName();
+                        $zip = $address->getZipcode();
+                        $city = $address->getCity();
+                        $neighborhood = $address->getNeighborhood();
+                        $price = $product->getFormattedPrice();
+
+                        $link = "<td><a href=\"/cart/remove/locationId=%s/\" class=\"ajax-reload\"><span class=\"glyphicon glyphicon-trash\"></span></a></td>";
+                        $remLink = sprintf($link, $product->getId());
+                        $row = "<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td>%s</tr>";
+                        printf($row, $street, $city, $zip, $neighborhood, $price, $remLink);
+                    endforeach;
+                    ?>
+                    <tr class="active">
+                        <td colspan="3"></td>
+                        <td><strong>Totaal prijs: </strong></td>
+                        <td colspan="2"><?php echo $cart->getFormattedTotalPrice(); ?></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class = "col-xs-6 col-md-4">
+            <div class = "panel panel-default">
+                <div class = "panel-heading">Kopen</div>
+                <div class = "panel-body">
+                    <p>
+                        <a href="/checkout/payment/" class="btn btn-primary">Afrekenen</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <?php
+    else:
+        ?>
+        <div class="alert alert-danger fade in">
+            <h4>Lege winkelwagen</h4>
+            <p>Uw winkelwagen bevat geen producten.</p>
+            <p>
+                <a href="/" class="btn btn-default">Verder winkelen</a>
+            </p>
+        </div>
+    <?php
+    endif;
+    ?>
+
+</div>
+<?php
+$bottomJs[] = file_get_contents(VIEW_PATH . "common/ajaxReload.js");
+include VIEW_PATH . "partials/footer.phtml";

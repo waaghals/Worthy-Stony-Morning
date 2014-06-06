@@ -1,0 +1,139 @@
+<?php
+use Aggressiveswallow\Helpers\buttonHelper as Button;
+/* @var $location \Aggressiveswallow\Models\Location */
+
+include VIEW_PATH . "partials/header.phtml";
+?>
+<div class="row">
+    <div class="page-header">
+        <?php
+        $street = $location->getAddress()->getFullStreetName();
+        $city = $location->getAddress()->getCity();
+        echo sprintf("<h1>%s <small>%s</small></h1>", $street, $city);
+        ?>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-8">
+
+        <!-- <div class="thumbnail">
+             <img class="img-responsive" src="http://placehold.it/800x300" alt="">
+             <div class="caption-full">
+                 <h4 class="pull-right">&euro;<?php $location->getPrice(); ?></h4>
+                 <h4><a href="#"><?php echo $location->getAddress()->getFullStreetName(); ?></a>
+                 </h4>
+                 <p><?php echo $location->getDescription(); ?></p>
+             </div>
+             <a class="btn btn-primary"><span class="glyphicon glyphicon-shopping-cart"></span> Plaatsen in winkelwagen</a>
+         </div> -->
+
+        <ul class="nav nav-tabs nav-justified" id="locationTabs">
+            <li><a href="#features" data-toggle="tab">Kenmerken</a></li>
+            <li><a href="#description" data-toggle="tab">Omschrijving</a></li>
+            <li><a href="#pictures" data-toggle="tab">Foto's</a></li>
+            <li><a href="#location" data-toggle="tab">Ligging</a></li>
+            <li><a href="#streetview" data-toggle="tab">Straatzijde</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade active in" id="features">
+                <h2>Kenmerken</h2>
+                <p>
+                    <strong>
+                        Oppervlakte: 
+                    </strong>
+                    <?php echo $location->getArea(); ?> m<sup>2</sup>
+                </p>
+                <p>
+                    <strong>
+                        Oppervlakte tuin: 
+                    </strong>
+                    <?php echo $location->getYardArea(); ?> m<sup>2</sup>
+                </p>
+                <p>
+                    <strong>
+                        Energielabel: 
+                    </strong>
+                    <?php echo Button::energyLabel($location->getEnergyLabel()); ?>
+                </p>
+                <p>
+                    <strong>
+                        Nieuwbouw: 
+                    </strong>
+                    <?php if ($location->getNewBuild()): ?>
+                        Ja
+                    <?php else: ?>
+                        Nee
+                    <?php
+                    endif;
+                    ?>
+                </p>
+
+
+                <h3>Korte omschrijving</h3>
+                <p>Korte omschrijving... <a href="#description" data-toggle="tab">Lees meer</a></p>
+            </div>
+            <div class="tab-pane fade" id="description">
+                <h2>Omschrijving</h2>
+                <p><?php echo $location->getDescription(); ?></p>
+            </div>
+            <div class="tab-pane fade" id="pictures">
+                <h2>Foto's</h2>
+                <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
+            </div>
+            <div class="tab-pane fade" id="location">
+                <h2>Ligging</h2>
+                <p>TODO google map</p>
+            </div>
+            <div class="tab-pane fade" id="streetview">
+                <h2>Straatzijde</h2>
+                <p>TODO streetview</p> 
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-6 col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">Adres</div>
+            <div class="panel-body">
+                <p>
+                    <strong>Postadres</strong><br/>
+                    <?php echo $location->getAddress()->getFullStreetName(); ?><br/>
+                    <?php echo $location->getAddress()->getZipcode(); ?>, <?php echo $location->getAddress()->getCity(); ?>
+                </p>
+
+                <p>
+                    <strong>Wijk</strong><br/>
+                    <?php echo $location->getAddress()->getNeighborhood(); ?>
+                </p>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Type</h3>
+            </div>
+            <div class="panel-body">
+                <p>
+                    <strong>Categorie: </strong> 
+                    <?php echo $location->getMenuItem()->getName(); ?>
+                </p>
+
+                <a class="btn btn-default" href="<?php echo $location->getMenuItem()->getUri(); ?>">Meer aanbod in deze categorie.</a>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Kopen</div>
+            <div class="panel-body">
+                <p>
+                    <strong>Prijs</strong>
+                    <?php echo $location->getFormattedPrice(); ?>
+                </p>
+                <?php echo Button::addToCart($location, $cart); ?>
+            </div>
+        </div>
+    </div>
+</div>
+<?php
+$bottomJs[] = file_get_contents(VIEW_PATH . "locationViews/openFirstTab.js");
+$bottomJs[] = file_get_contents(VIEW_PATH . "common/ajaxReload.js");
+include VIEW_PATH . "partials/footer.phtml";

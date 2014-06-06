@@ -1,0 +1,50 @@
+<?php
+
+use Aggressiveswallow\Helpers\LoginHelper as Login;
+
+/* @var $location \Aggressiveswallow\Models\Location */
+
+include VIEW_PATH . "partials/header.phtml";
+?>
+<ol class="breadcrumb">
+    <li><a href="/">Webmakelaar</a></li>
+    <li><a href="/cart/show/">Winkelwagen</a></li>
+    <li><a href="/checkout/payment">Afgerond</a></li>
+</ol>
+<div class="row">
+    <div class="page-header">
+        <h1>Winkelwagen <small>Afgerond</small></h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-8">
+        <div class="alert alert-success fade in">
+            <h4>Afgerond</h4>
+            <p>U heeft uw bestelling succesvol afgerond! We nemen zo spoedig mogelijk telefonisch contact met uw op om een sleutel overdracht af te spreken.</p>
+            <p>
+                <a href="/" class="btn btn-default">Verder winkelen</a>
+            </p>
+        </div>
+    </div>
+    <div class = "col-xs-6 col-md-4">
+        <div class = "panel panel-default">
+            <div class = "panel-heading">Gekocht</div>
+            <div class = "panel-body">
+                <p>U heeft de volgende locaties gekocht.</p>
+                <ul>
+                    <?php
+                    /* @var $cart \Aggressiveswallow\Helpers\Cart */
+                    foreach ($cart->getItems() as $item) :
+                        printf("<li>%s</li>", $item->getAddress()->getFullStreetName());
+                    endforeach;
+                    ?>
+                </ul>
+                <p>
+                    <a href = "/cart/show/" class = "btn btn-default">Winkelwagen wijzigen</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<?php
+include VIEW_PATH . "partials/footer.phtml";

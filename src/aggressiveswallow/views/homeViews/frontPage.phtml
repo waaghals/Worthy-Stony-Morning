@@ -1,0 +1,39 @@
+<?php
+
+use Aggressiveswallow\Tools\Template;
+
+include "../partials/header.phtml";
+?>
+
+<div class="row">
+    <div class="col-lg-12">
+        <h3>Laatste woningen</h3>
+    </div>
+</div>
+<!-- /.row -->
+
+<?php
+$locationCount = count($locations);
+if (count($locations) > 0):
+    echo "<div class=\"row text-center\">";
+    for ($i = 0; $i < $locationCount; $i++):
+        $loc = $locations[$i];
+        if (($i % 3) == 0):
+            // Close the current row and start a new one.
+            echo "</div> <!-- /.row -->";
+            echo "<div class=\"row text-center\">";
+        endif;
+
+        // Show the HTML for the item.
+        $item = new Template("homeViews/frontPageItem");
+        /* @var $loc \Aggressiveswallow\Models\Location */
+        $item->location = $loc;
+        $item->cart = $cart;
+
+        echo $item;
+    endfor;
+    echo "</div> <!-- /.row -->";
+endif;
+
+$bottomJs[] = file_get_contents(VIEW_PATH . "common/ajaxReload.js");
+include VIEW_PATH . "partials/footer.phtml";
