@@ -1,10 +1,6 @@
 <?php
 include VIEW_PATH . "partials/header.phtml";
 ?>
-<ol class="breadcrumb">
-    <li><a href="/">Webmakelaar</a></li>
-    <li><a href="#">Bericht</a></li>
-</ol>
 <div class="row">
     <div class="page-header">
         <h1><?php echo $title; ?> <small><?php echo $shortMessage; ?></small></h1>
@@ -13,14 +9,14 @@ include VIEW_PATH . "partials/header.phtml";
 <div class="row">
     <div class="alert alert-<?php echo $class; ?> fade in">
         <h4>
-            <?php 
+            <?php
             echo $title . " ";
             echo $shortMessage;
             ?>
         </h4>
         <p><?php echo $description; ?></p>
         <p>
-            <a href="/" class="btn btn-<?php echo $class; ?>">Verder winkelen</a>
+            <a href="/" class="btn btn-<?php echo $class; ?>">Naar de homepagina</a>
         </p>
     </div>
 </div>
