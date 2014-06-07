@@ -29,7 +29,7 @@ class MessageHelper
     public static function error($title, $subtitle, $desc)
     {
         $t        = self::create($title, $subtitle, $desc);
-        $t->class = "error";
+        $t->class = "danger";
         return new Response($t);
     }
 

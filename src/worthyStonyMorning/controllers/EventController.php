@@ -43,7 +43,7 @@ class EventController extends BaseController
         return $this->handleEventModification($_POST);
     }
 
-    private function createEvent($post_data)
+    private function storeEvent($post_data)
     {
         $eventFactory = Container::make("eventFactory");
         $repo         = Container::make("genericRepository");
@@ -77,6 +77,11 @@ class EventController extends BaseController
         $query->setEventId($eventId);
         $event = $repo->read($query);
 
+        if (is_null($event->getId())) {
+            return MessageHelper::error("Evenement", "onbekent",
+                                        "Het evenement wat u wilt bewerken bestaat niet.");
+        }
+
         //Transform the object to a array just like $_POST
         $data['event_id']        = $event->getId();
         $data['event_title']     = $event->getTitle();
@@ -89,9 +94,26 @@ class EventController extends BaseController
         return $this->handleEventModification($data);
     }
 
-    public function deleteAction()
+    public function deleteAction($eventId)
     {
+        if (!Login::isLoggedIn()) {
+            return new ErrorResponse("Niet toegestaan", Response::HTTP_FORBIDDEN);
+        }
 
+        $repo  = Container::make("genericRepository");
+        $query = Container::make("singleEventQuery");
+        $query->setEventId($eventId);
+        $event = $repo->read($query);
+
+        if (is_null($event->getId())) {
+            return MessageHelper::error("Evenement", "onbekent",
+                                        "Het evenement wat u wilt verwijderen bestaat niet.");
+        }
+
+        $repo->delete($event);
+
+        return MessageHelper::success("Evenement", "verwijderd",
+                                      "Het evenement is met succes uit de database verwijderd.");
     }
 
     private function handleEventModification($post_data)
@@ -105,7 +127,7 @@ class EventController extends BaseController
             if (!$validator->isValid($post_data)) {
                 $this->errors = $validator->getMessages();
             } else {
-                $this->createEvent($post_data);
+                $this->storeEvent($post_data);
 
                 return MessageHelper::success("Evenement", "opgeslagen",
                                               "Het evenement is met succes opgeslagen in de database.");
