@@ -10,6 +10,8 @@ use Aggressiveswallow\Tools\Session;
 use Aggressiveswallow\Helpers\Cart;
 use Aggressiveswallow\Repositories\OrderRepository;
 use Aggressiveswallow\Queries\CategoriesQuery;
+use WorthyStonyMorning\Factories\EventFactory;
+use WorthyStonyMorning\Validators\EventValidator;
 
 // Register the objects
 Container::registerSingleton("db",
@@ -47,6 +49,16 @@ Container::register("addressFactory",
 Container::registerSingleton("userFactory",
                              function() {
     return new UserFactory();
+});
+
+Container::registerSingleton("eventFactory",
+                             function() {
+    return new EventFactory();
+});
+
+Container::registerSingleton("eventValidator",
+                             function() {
+    return new EventValidator();
 });
 
 Container::register("userByNameQuery",

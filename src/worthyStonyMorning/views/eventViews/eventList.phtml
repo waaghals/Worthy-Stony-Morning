@@ -1,0 +1,70 @@
+<?php
+
+use WorthyStonyMorning\Helpers\FormHelper as Form;
+
+include VIEW_PATH . "partials/header.phtml";
+?>
+<h1>Aankomende <small>evenementen</small></h1>
+<div class="panel-group" id="accordion">
+    <?php
+    foreach ($upcomming as $event):
+        ?>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                        <?php echo $event->title; ?>
+                    </a>
+                </h4>
+                <p><?php echo $event->shortdesc; ?></p>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <p><?php echo $event->longdesc; ?></p>
+                </div>
+            </div>
+        </div>
+
+        <?php
+    endforeach;
+    ?>
+</div>
+<input name="event_id" type="hidden" <?php Form::val($data, "event_id"); ?>>
+<div class="form-group">
+    <label for="event_email">Contact persoon</label>
+    <input name="event_email" type="email" class="form-control"
+           id="event_email" placeholder="Email adres" required="required"
+           <?php Form::val($data, "event_e"); ?>>
+</div>
+<div class="form-group">
+    <label for="event_title">Titel</label>
+    <input name="event_title" type="text" class="form-control"
+           id="event_title" required="required"
+           <?php Form::val($data, "event_title"); ?>>
+</div>
+
+<div class="form-group">
+    <label for="event_time">Tijdstip</label>
+    <input name="event_time" type="datetime-local" class="form-control"
+           id="event_time" required="required"
+           <?php Form::val($data, "event_time"); ?>>
+</div>
+
+<div class="form-group">
+    <label for="event_shortdesc">Korte omschrijving</label>
+    <input name="event_shortdesc" type="text" class="form-control"
+           id="event_shortdesc" required="required"
+           <?php Form::val($data, "event_shortdesc"); ?>>
+</div>
+
+<div class="form-group">
+    <label for="event_longdesc">Lange omschrijving</label>
+    <textarea name="event_longdesc" id="event_longdesc" class="form-control"
+              rows="3" required="required"
+              <?php Form::val($data, "event_longdesc"); ?>></textarea>
+</div>
+
+<button name="submit" type="submit" class="btn btn-default">Aanmaken</button>
+</form>
+<?php
+include VIEW_PATH . "partials/footer.phtml";
