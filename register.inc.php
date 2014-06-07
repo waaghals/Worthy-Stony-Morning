@@ -14,6 +14,9 @@ use WorthyStonyMorning\Factories\EventFactory;
 use WorthyStonyMorning\Validators\EventValidator;
 use WorthyStonyMorning\Queries\EventsQuery;
 use WorthyStonyMorning\Queries\SingleEventQuery;
+use WorthyStonyMorning\Validators\PageValidator;
+use WorthyStonyMorning\Queries\SinglePageQuery;
+use WorthyStonyMorning\Factories\PageFactory;
 
 // Register the objects
 Container::registerSingleton("db",
@@ -103,4 +106,20 @@ Container::register("singleEventQuery",
     $db      = Container::make("db");
     $factory = Container::make("eventFactory");
     return new SingleEventQuery($db, $factory);
+});
+
+Container::registerSingleton("pageValidator",
+                             function() {
+    return new PageValidator();
+});
+
+Container::register("singlePageQuery",
+                    function() {
+    $db      = Container::make("db");
+    $factory = Container::make("pageFactory");
+    return new SinglePageQuery($db, $factory);
+});
+
+Container::register("pageFactory", function() {
+    return new PageFactory();
 });

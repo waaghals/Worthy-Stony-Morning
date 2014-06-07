@@ -1,0 +1,36 @@
+<?php
+
+use WorthyStonyMorning\Helpers\FormHelper as Form;
+
+include VIEW_PATH . "partials/header.phtml";
+?>
+<form role="form" method="post">
+
+
+    <?php if (isset($errors)): ?>
+        <div class="alert alert-danger">
+            <?php
+            foreach ($errors as $error):
+                printf("<p>%s</p>", $error);
+            endforeach;
+            ?>
+        </div>
+    <?php endif; ?>
+
+    <input name="content_id" type="hidden" <?php Form::val($data, "content_id"); ?>>
+    <div class="form-group">
+        <label for="content_page">Pagina</label>
+        <input name="content_page" type="email" class="form-control"
+               id="content_page" required="required" disabled="disabled"
+               <?php Form::val($data, "content_page"); ?>>
+    </div>
+    <div class="form-group">
+        <label for="event_longdesc">Inhoud</label>
+        <textarea name="content_content" id="content_content" class="form-control"
+                  rows="3" required="required"><?php echo (isset($data['content_content'])) ? $data['content_content'] : ""; ?></textarea>
+    </div>
+
+    <button name="submit" type="submit" class="btn btn-default">Opslaan</button>
+</form>
+<?php
+include VIEW_PATH . "partials/footer.phtml";

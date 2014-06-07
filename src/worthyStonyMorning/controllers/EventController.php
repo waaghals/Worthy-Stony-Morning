@@ -32,8 +32,9 @@ class EventController extends BaseController
         $upcomingQuery = Container::make("upcomingEventsQuery");
         $pastQuery     = Container::make("pastEventsQuery");
 
-        $t->upcoming = $repo->read($upcomingQuery);
-        $t->past     = $repo->read($pastQuery);
+        $t->upcoming  = $repo->read($upcomingQuery);
+        $t->past      = $repo->read($pastQuery);
+        $t->pageTitle = "Evenementen";
 
         return new Response($t);
     }
@@ -62,6 +63,8 @@ class EventController extends BaseController
         if (is_null($post_data)) {
             $t->data = array();
         }
+
+        $t->pageTitle = "Evenement formulier";
 
         return new Response($t);
     }
