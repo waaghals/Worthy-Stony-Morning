@@ -107,8 +107,8 @@ class EventController extends BaseController
             } else {
                 $this->createEvent($post_data);
 
-                return MessageHelper::success("Evenement", "aangemaakt",
-                                              "Het evenement is met succes aangemaakt in de database.");
+                return MessageHelper::success("Evenement", "opgeslagen",
+                                              "Het evenement is met succes opgeslagen in de database.");
             }
         }
         return $this->showEventForm($post_data);
