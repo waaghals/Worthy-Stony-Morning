@@ -13,6 +13,7 @@ use Aggressiveswallow\Queries\CategoriesQuery;
 use WorthyStonyMorning\Factories\EventFactory;
 use WorthyStonyMorning\Validators\EventValidator;
 use WorthyStonyMorning\Queries\EventsQuery;
+use WorthyStonyMorning\Queries\SingleEventQuery;
 
 // Register the objects
 Container::registerSingleton("db",
@@ -97,3 +98,9 @@ Container::register("pastEventsQuery",
     return new EventsQuery($db, $factory, "past");
 });
 
+Container::register("singleEventQuery",
+                    function() {
+    $db      = Container::make("db");
+    $factory = Container::make("eventFactory");
+    return new SingleEventQuery($db, $factory);
+});

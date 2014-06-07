@@ -48,11 +48,11 @@ include VIEW_PATH . "partials/header.phtml";
     <div class="form-group">
         <label for="event_longdesc">Lange omschrijving</label>
         <textarea name="event_longdesc" id="event_longdesc" class="form-control"
-                  rows="3" required="required"
-                  <?php Form::val($data, "event_longdesc"); ?>></textarea>
+                  rows="3" required="required"><?php echo (isset($data['event_longdesc'])) ? $data['event_longdesc'] : ""; ?>
+        </textarea>
     </div>
 
-    <button name="submit" type="submit" class="btn btn-default">Aanmaken</button>
+    <button name="submit" type="submit" class="btn btn-default">Opslaan</button>
 </form>
 <?php
 include VIEW_PATH . "partials/footer.phtml";

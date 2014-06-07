@@ -40,23 +40,7 @@ class EventController extends BaseController
 
     public function createAction()
     {
-        if (!Login::isLoggedIn()) {
-            return new ErrorResponse("Niet toegestaan", Response::HTTP_FORBIDDEN);
-        }
-
-
-        if (isset($_POST["submit"])) {
-            $validator = Container::make("eventValidator");
-            if (!$validator->isValid($_POST)) {
-                $this->errors = $validator->getMessages();
-            } else {
-                $this->createEvent($_POST);
-
-                return MessageHelper::success("Evenement", "aangemaakt",
-                                              "Het evenement is met succes aangemaakt in de database.");
-            }
-        }
-        return $this->showEventForm($_POST);
+        return $this->handleEventModification($_POST);
     }
 
     private function createEvent($post_data)
@@ -82,14 +66,52 @@ class EventController extends BaseController
         return new Response($t);
     }
 
-    public function editAction()
+    public function editAction($eventId)
     {
+        if (isset($_POST['submit'])) {
+            return $this->handleEventModification($_POST);
+        }
 
+        $repo  = Container::make("genericRepository");
+        $query = Container::make("singleEventQuery");
+        $query->setEventId($eventId);
+        $event = $repo->read($query);
+
+        //Transform the object to a array just like $_POST
+        $data['event_id']        = $event->getId();
+        $data['event_title']     = $event->getTitle();
+        $data['event_time']      = strftime('%Y-%m-%dT%H:%M:%S',
+                                            strtotime($event->getTime()));
+        $data['event_shortdesc'] = $event->getShortdesc();
+        $data['event_longdesc']  = $event->getLongdesc();
+        $data['event_email']     = $event->getEmail();
+
+        return $this->handleEventModification($data);
     }
 
     public function deleteAction()
     {
 
+    }
+
+    private function handleEventModification($post_data)
+    {
+        if (!Login::isLoggedIn()) {
+            return new ErrorResponse("Niet toegestaan", Response::HTTP_FORBIDDEN);
+        }
+
+        if (isset($post_data["submit"])) {
+            $validator = Container::make("eventValidator");
+            if (!$validator->isValid($post_data)) {
+                $this->errors = $validator->getMessages();
+            } else {
+                $this->createEvent($post_data);
+
+                return MessageHelper::success("Evenement", "aangemaakt",
+                                              "Het evenement is met succes aangemaakt in de database.");
+            }
+        }
+        return $this->showEventForm($post_data);
     }
 
 }
