@@ -11,7 +11,7 @@ include VIEW_PATH . "partials/header.phtml";
         <div class="alert alert-danger">
             <?php
             foreach ($errors as $error):
-                sprintf("<p>%s</p>", $error);
+                printf("<p>%s</p>", $error);
             endforeach;
             ?>
         </div>
@@ -22,7 +22,7 @@ include VIEW_PATH . "partials/header.phtml";
         <label for="event_email">Contact persoon</label>
         <input name="event_email" type="email" class="form-control"
                id="event_email" placeholder="Email adres" required="required"
-               <?php Form::val($data, "event_e"); ?>>
+               <?php Form::val($data, "event_email"); ?>>
     </div>
     <div class="form-group">
         <label for="event_title">Titel</label>

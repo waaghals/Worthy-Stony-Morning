@@ -27,7 +27,15 @@ class EventController extends BaseController
 
     public function listAction()
     {
-        Container::make("genericRepository");
+        $t             = new Template("eventViews/eventList");
+        $repo          = Container::make("genericRepository");
+        $upcomingQuery = Container::make("upcomingEventsQuery");
+        $pastQuery     = Container::make("pastEventsQuery");
+
+        $t->upcoming = $repo->read($upcomingQuery);
+        $t->past     = $repo->read($pastQuery);
+
+        return new Response($t);
     }
 
     public function createAction()

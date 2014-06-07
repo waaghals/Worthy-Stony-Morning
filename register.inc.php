@@ -12,6 +12,7 @@ use Aggressiveswallow\Repositories\OrderRepository;
 use Aggressiveswallow\Queries\CategoriesQuery;
 use WorthyStonyMorning\Factories\EventFactory;
 use WorthyStonyMorning\Validators\EventValidator;
+use WorthyStonyMorning\Queries\EventsQuery;
 
 // Register the objects
 Container::registerSingleton("db",
@@ -81,3 +82,18 @@ Container::register("orderRepository",
     $persistance = Container::make("persistor");
     return new OrderRepository($persistance);
 });
+
+Container::register("upcomingEventsQuery",
+                    function() {
+    $db      = Container::make("db");
+    $factory = Container::make("eventFactory");
+    return new EventsQuery($db, $factory, "upcoming");
+});
+
+Container::register("pastEventsQuery",
+                    function() {
+    $db      = Container::make("db");
+    $factory = Container::make("eventFactory");
+    return new EventsQuery($db, $factory, "past");
+});
+

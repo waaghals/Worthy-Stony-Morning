@@ -19,7 +19,7 @@ class FormHelper
     public static function val($data, $key)
     {
         if (\array_key_exists($key, $data)) {
-            sprintf("value=\"%s\"" . $data[$key]);
+            printf("value=\"%s\"", $data[$key]);
         }
     }
 
