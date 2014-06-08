@@ -27,6 +27,11 @@ define('VENDOR_PATH', SRC_PATH . "worthyStonyMorning" . DS, true);
  */
 define('VIEW_PATH', VENDOR_PATH . "views" . DS, true);
 
+/**
+ * @def (resource) BASE_URL - folder in which the website resides
+ */
+define('BASE_URL', "/", true);
+
 setlocale(LC_ALL, 'nl_NL');
 
 require SRC_PATH . "Aggressiveswallow" . DS . "tools" . DS . "autoloader.php";

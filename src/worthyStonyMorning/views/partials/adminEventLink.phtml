@@ -1,0 +1,11 @@
+<li>
+    <?php echo $event->getTitle(); ?>
+    <small>
+        <a href = "<?php echo BASE_URL; ?>event\edit\eventId=<?php echo $event->getId(); ?>">
+            <span class="glyphicon glyphicon-edit"></span>
+        </a>
+        <a href="<?php echo BASE_URL; ?>event\delete\eventId=<?php echo $event->getId(); ?>">
+            <span class="glyphicon glyphicon-trash"></span>
+        </a>
+    </small>
+</li>

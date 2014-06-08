@@ -1,0 +1,42 @@
+<?php
+
+use Aggressiveswallow\Tools\Template;
+
+include VIEW_PATH . "partials/adminHeader.phtml";
+?>
+<h1>Evenementen <small>beheren</small></h1>
+<?php if (isset($events)): ?>
+    <ul>
+        <?php
+        $li = new Template("partials\adminEventLink");
+        foreach ($events as $event):
+            $li->event = $event;
+            echo $li;
+        endforeach;
+        ?>
+    </ul>
+<?php endif; ?>
+<p><a class="btn btn-primary" href="<?php echo BASE_URL; ?>event/create">Nieuw evenement aanmaken</a></p>
+<h1>Pagina's <small>beheren</small></h1>
+<ul>
+    <li>
+        Homepage
+        <small>
+            <a href = "<?php echo BASE_URL; ?>page\edit\pageName=home">
+                <span class="glyphicon glyphicon-edit"></span>
+            </a>
+        </small>
+    </li>
+    <li>
+        Contact
+        <small>
+            <a href = "<?php echo BASE_URL; ?>page\edit\pageName=contact">
+                <span class="glyphicon glyphicon-edit"></span>
+            </a>
+        </small>
+    </li>
+</ul>
+<h1>Afbeeldingen <small>beheren</small></h1>
+<?php
+include VIEW_PATH . "partials/footer.phtml";
+?>

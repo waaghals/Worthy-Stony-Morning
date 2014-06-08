@@ -101,6 +101,13 @@ Container::register("pastEventsQuery",
     return new EventsQuery($db, $factory, "past");
 });
 
+Container::register("allEventsQuery",
+                    function() {
+    $db      = Container::make("db");
+    $factory = Container::make("eventFactory");
+    return new EventsQuery($db, $factory, "all");
+});
+
 Container::register("singleEventQuery",
                     function() {
     $db      = Container::make("db");
