@@ -13,7 +13,7 @@ class ValidatorHelper
             $url = $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
         }
 
-        return "http://validator.w3.org/check?uri=" . $url . "&charset=%28detect+automatically%29&doctype=Inline&group=0";
+        return "http://validator.w3.org/check?uri=" . $url . "&amp;charset=%28detect+automatically%29&amp;doctype=Inline&amp;group=0";
     }
 
 }
