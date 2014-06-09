@@ -6,6 +6,8 @@ namespace Aggressiveswallow;
  *
  * @author Patrick
  */
-interface ValidateInterface {
-    function isValid();
+interface ValidateInterface
+{
+
+    function isValid($data);
 }

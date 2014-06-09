@@ -1,0 +1,28 @@
+<?php
+include VIEW_PATH . "partials/header.phtml";
+
+use Aggressiveswallow\Tools\Template;
+?>
+<h1>Aankomende <small>evenementen</small></h1>
+<div class="panel-group" id="accordion">
+    <?php
+    foreach ($upcoming as $event):
+        $t        = new Template("partials/eventListAccordionItem");
+        $t->event = $event;
+        echo $t;
+    endforeach;
+    ?>
+</div>
+
+<h1>Afgelopen <small>evenementen</small></h1>
+<div class="panel-group" id="accordion">
+    <?php
+    foreach ($past as $event):
+        $t        = new Template("partials/eventListAccordionItem");
+        $t->event = $event;
+        echo $t;
+    endforeach;
+    ?>
+</div>
+<?php
+include VIEW_PATH . "partials/footer.phtml";

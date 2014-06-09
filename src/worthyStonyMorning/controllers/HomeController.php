@@ -17,15 +17,19 @@ class HomeController extends BaseController
 
     public function indexAction()
     {
-        $t = new Template("homeViews/frontPage");
-
-        $repo         = Container::make("GenericRepository");
-        //$latestQ = Container::make("latestLocationQuery");
-        //$t->locations = $repo->read($latestQ);
+        $t            = new Template("homeViews/frontPage");
         $t->pageTitle = "Home";
-        //$t->cart = $this->session->cart;
 
-        return new Response($t, 200);
+        $repo  = Container::make("genericRepository");
+        $query = Container::make("singlePageQuery");
+        $query->setPageName("home");
+
+        $page       = $repo->read($query);
+        $t->content = $page->getContent();
+
+        $imgQuery  = Container::make("allImagesQuery");
+        $t->images = $repo->read($imgQuery);
+        return new Response($t);
     }
 
 }

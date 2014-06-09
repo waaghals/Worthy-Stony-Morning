@@ -1,0 +1,18 @@
+<div class="row">
+    <div class="col-md-2">
+        <img
+            src="<?php echo BASE_URL; ?>public\uploads\<?php echo $image->getPath(); ?>"
+            class="img-responsive img-thumbnail"
+            alt="<?php echo $image->getId(); ?>"
+            />
+
+    </div>
+    <div class="col-md-10 text-right">
+        <small>
+
+            <a href="<?php echo BASE_URL; ?>image\delete\imageId=<?php echo $image->getId(); ?>">
+                <span class="glyphicon glyphicon-trash"></span>
+            </a>
+        </small>
+    </div>
+</div>

@@ -11,17 +11,18 @@ use Aggressiveswallow\ResultQueryInterface;
  *
  * @author Patrick
  */
-class GenericRepository
-        extends BaseRepository {
+class GenericRepository extends BaseRepository
+{
 
     /**
      *
-     * @var Aggressiveswallow\PersistanceInterface; 
+     * @var Aggressiveswallow\PersistanceInterface;
      */
     private $persistor;
     private $objReflector;
 
-    public function __construct(PersistanceInterface $persistor) {
+    public function __construct(PersistanceInterface $persistor)
+    {
         $this->persistor = $persistor;
     }
 
@@ -32,10 +33,11 @@ class GenericRepository
      * @throws \InvalidArgumentException When the object isn't valid
      * @throws \Exception When an unexpected object is in the entity.
      */
-    public function create(BaseEntity $object) {
+    public function create(BaseEntity $object)
+    {
         $this->objReflector = new \ReflectionObject($object);
 
-        $fields = $this->objReflector->getProperties();
+        $fields   = $this->objReflector->getProperties();
         $bindData = array();
 
         foreach ($fields as $field) {
@@ -44,11 +46,11 @@ class GenericRepository
             }
 
             $fieldValue = $this->getPropertyValue($field, $object);
-            $fieldName = $field->getName();
+            $fieldName  = $field->getName();
 
             if (is_object($fieldValue)) {
                 $fieldReflector = new \ReflectionObject($fieldValue);
-                $isBaseEntity = $fieldReflector->isSubclassOf("Aggressiveswallow\Models\BaseEntity");
+                $isBaseEntity   = $fieldReflector->isSubclassOf("Aggressiveswallow\Models\BaseEntity");
 
                 if (!$isBaseEntity) {
                     throw new \Exception("Unexpected object in Entity, value isn't subclass of baseEntity'");
@@ -78,19 +80,25 @@ class GenericRepository
         return $object;
     }
 
-    public function delete(BaseEntity $object) {
+    public function delete(BaseEntity $object)
+    {
         if ($object->getId() == null) {
             throw new \Exception("Can't delete \$object because it does not have a Id (PKey)");
         }
 
+        $objReflector = new \ReflectionObject($object);
+        $this->persistor->setTableName($objReflector->getShortName());
+
         $this->persistor->destroy($object->getId());
     }
 
-    public function read(ResultQueryInterface $query) {
+    public function read(ResultQueryInterface $query)
+    {
         return $query->fetch();
     }
 
-    public function update(BaseEntity $object) {
+    public function update(BaseEntity $object)
+    {
         if ($object->getId() == null) {
             throw new \Exception("Can't update \$object because does not have a Id (PKey)");
         }
@@ -100,7 +108,8 @@ class GenericRepository
         return $this->create($object);
     }
 
-    private function shouldStoreProperty(\ReflectionProperty $property) {
+    private function shouldStoreProperty(\ReflectionProperty $property)
+    {
         if ($this->isVirtualProperty($property)) {
             return false;
         }
@@ -108,8 +117,9 @@ class GenericRepository
         return $this->hasGetMethod($property);
     }
 
-    private function hasGetMethod(\ReflectionProperty $property) {
-        $propName = $property->getName();
+    private function hasGetMethod(\ReflectionProperty $property)
+    {
+        $propName   = $property->getName();
         $methodName = sprintf("get%s", ucfirst($propName));
 
         if (!$this->objReflector->hasMethod($methodName)) {
@@ -120,7 +130,8 @@ class GenericRepository
         return $method->isPublic();
     }
 
-    private function isVirtualProperty($property) {
+    private function isVirtualProperty($property)
+    {
         $phpDoc = new \phpDocumentor\Reflection\DocBlock($property);
 
         foreach ($phpDoc->getTags() as $tag) {
@@ -133,9 +144,10 @@ class GenericRepository
         return false;
     }
 
-    private function getPropertyValue(\ReflectionProperty $property, BaseEntity $object) {
+    private function getPropertyValue(\ReflectionProperty $property, BaseEntity $object)
+    {
         if ($this->hasGetMethod($property)) {
-            $propName = $property->getName();
+            $propName   = $property->getName();
             $methodName = sprintf("get%s", ucfirst($propName));
 
             $method = $this->objReflector->getMethod($methodName);
