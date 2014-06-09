@@ -18,6 +18,10 @@ use WorthyStonyMorning\Validators\PageValidator;
 use WorthyStonyMorning\Queries\SinglePageQuery;
 use WorthyStonyMorning\Factories\PageFactory;
 use WorthyStonyMorning\Validators\ContactValidator;
+use WorthyStonyMorning\Queries\SingleImageQuery;
+use WorthyStonyMorning\Validators\UploadValidator;
+use WorthyStonyMorning\Factories\ImageFactory;
+use WorthyStonyMorning\Queries\AllImagesQuery;
 
 // Register the objects
 Container::registerSingleton("db",
@@ -116,13 +120,13 @@ Container::register("singleEventQuery",
     return new SingleEventQuery($db, $factory);
 });
 
-Container::registerSingleton("pageValidator",
-                             function() {
+Container::register("pageValidator",
+                    function() {
     return new PageValidator();
 });
 
-Container::registerSingleton("contactValidator",
-                             function() {
+Container::register("contactValidator",
+                    function() {
     return new ContactValidator();
 });
 
@@ -133,6 +137,30 @@ Container::register("singlePageQuery",
     return new SinglePageQuery($db, $factory);
 });
 
+Container::register("singleImageQuery",
+                    function() {
+    $db      = Container::make("db");
+    $factory = Container::make("imageFactory");
+    return new SingleImageQuery($db, $factory);
+});
+
 Container::register("pageFactory", function() {
     return new PageFactory();
+});
+
+Container::register("uploadValidator",
+                    function() {
+    return new UploadValidator();
+});
+
+Container::register("imageFactory",
+                    function() {
+    return new ImageFactory();
+});
+
+Container::register("allImagesQuery",
+                    function() {
+    $db      = Container::make("db");
+    $factory = Container::make("imageFactory");
+    return new AllImagesQuery($db, $factory);
 });

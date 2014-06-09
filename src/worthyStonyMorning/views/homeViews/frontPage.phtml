@@ -2,52 +2,58 @@
 include VIEW_PATH . "partials/header.phtml";
 ?>
 
-<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-    </ol>
-
-    <!-- Wrapper for slides -->
-    <div class="carousel-inner">
-        <div class="item active">
-            <img alt="First slide" src="http://placehold.it/1140x400">
-            <div class="carousel-caption">
-                <h3>First slide</h3>
-                <p>Some info</p>
-            </div>
-        </div>
-        <div class="item">
-            <img alt="Second Image" src="http://placehold.it/1140x400">
-            <div class="carousel-caption">
-                <h3>Second slide</h3>
-                <p>Some info</p>
-            </div>
-        </div>
-        <div class="item">
-            <img alt="Third slide" src="http://placehold.it/1140x400">
-            <div class="carousel-caption">
-                <h3>Third slide</h3>
-                <p>Some info</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Controls -->
-    <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left"></span>
-    </a>
-    <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right"></span>
-    </a>
-</div>
 
 <?php if (isset($content)): ?>
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-8">
             <?php echo $content; ?>
+        </div>
+        <div class="col-lg-4">
+            <?php if (isset($images)): ?>
+                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        <?php
+                        $firstIndicator = true;
+                        $i              = 0;
+                        foreach ($images as $image):
+                            ?>
+                            <li
+                                data-target="#carousel-example-generic"
+                                data-slide-to="<?php echo $i; ?>"
+                                <?php
+                                echo ($firstIndicator) ? "class=\"active\"" : "";
+                                $i++;
+                                $firstIndicator = false;
+                                ?>
+                                >
+                            </li>
+
+                        <?php endforeach; ?>
+                    </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                        <?php
+                        $first = true;
+                        foreach ($images as $image):
+                            ?>
+                            <div class="item <?php echo ($first) ? "active" : ""; ?>">
+                                <img alt="Slide" src="<?php echo BASE_URL . "public/uploads/" . $image->getPath(); ?> ">
+                            </div>
+                            <?php $first = false; ?>
+                        <?php endforeach; ?>
+                    </div>
+
+                    <!-- Controls -->
+                    <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                    <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
 <?php endif; ?>

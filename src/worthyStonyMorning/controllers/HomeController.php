@@ -23,9 +23,12 @@ class HomeController extends BaseController
         $repo  = Container::make("genericRepository");
         $query = Container::make("singlePageQuery");
         $query->setPageName("home");
-        $page  = $repo->read($query);
 
+        $page       = $repo->read($query);
         $t->content = $page->getContent();
+
+        $imgQuery  = Container::make("allImagesQuery");
+        $t->images = $repo->read($imgQuery);
         return new Response($t);
     }
 
