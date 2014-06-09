@@ -1,0 +1,38 @@
+<?php
+
+use WorthyStonyMorning\Helpers\ValidatorHelper as Validator;
+?>
+<footer>
+    <hr />
+    <div class="row">
+        <div class="col-lg-6">
+            <p>Door Patrick</p>
+        </div>
+        <div class="col-lg-6 text-right">
+            <p><a href="<?php echo Validator::htmlValidtor(); ?>">HTML5 valid</a></p>
+        </div>
+    </div>
+</footer>
+
+</div>
+<!-- /.container -->
+
+<!-- JavaScript -->
+<script src="<?php echo BASE_URL; ?>public/js/jquery-1.10.2.js"></script>
+<script src="<?php echo BASE_URL; ?>public/js/bootstrap.js"></script>
+
+<?php
+if (isset($bottomJs)):
+    $tag = "<script>%s</script>";
+    if (is_array($bottomJs)):
+        foreach ($bottomJs as $script):
+            echo sprintf($tag, $script);
+        endforeach;
+    else:
+        echo sprintf($tag, $bottomJs);
+    endif;
+endif;
+?>
+</body>
+
+</html>

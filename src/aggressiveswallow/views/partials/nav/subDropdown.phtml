@@ -1,0 +1,23 @@
+<li class="dropdown-submenu">
+    <?php
+    echo sprintf($regularLink, $childNav->getUri(), $childNav->getName());
+    ?>
+    <ul class="dropdown-menu">
+        <?php
+        foreach ($navItem->getChildren() as $childNav):
+            /* @var \Aggressiveswallow\Helpers\NavItem $childNav */
+
+            if ($childNav->hasChildren()):
+                if ($childNav->hasChildren()):
+                    $t = new \Aggressiveswallow\Tools\Template("partials\nav\subDropdown");
+                    $t->navItem = $childNav;
+                    echo $t;
+                //  include "subDropdown.phtml";
+                endif;
+            else:
+                echo sprintf($regularLink, $childNav->getUri(), $childNav->getName());
+            endif;
+
+        endforeach;
+        ?>
+    </ul>

@@ -1,0 +1,203 @@
+<?php
+
+use Aggressiveswallow\Helpers\LoginHelper as Login;
+use Aggressiveswallow\Helpers\buttonHelper as Button;
+
+/* @var $location \Aggressiveswallow\Models\Location */
+
+include VIEW_PATH . "partials/header.phtml";
+?>
+<ol class="breadcrumb">
+    <li><a href="/">Webmakelaar</a></li>
+    <li><a href="#">Toevoegen</a></li>
+</ol>
+<div class="row">
+    <div class="page-header">
+        <h1>Woning <small>Toevoegen</small></h1>
+    </div>
+</div>
+
+<?php
+if (isset($error)):
+    ?>
+    <div class="row">
+        <div class="alert alert-danger fade in">
+            <h4>Fout</h4>
+            <p><?php echo $error;?></p>
+        </div
+    </div>
+    <?php
+endif;
+?>
+
+<div class="row">
+    <form class="form-horizontal" role="form" action="/location/add/" method="post">
+        <div class="col-sm-6">
+            <fieldset>
+                <legend>Woning</legend>
+                <div class="form-group">
+                    <label for="location_description" class="col-sm-2 control-label">Omschrijving</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" class="col-sm-10" rows="3" name="location_description"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="location_area" class="col-sm-2 control-label">Opp. woning</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="address_housenumber" name="location_area">
+                        <p>Oppervlakte dient te worden opgegeven in<code>m<sup>2</sup></code></p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="location_yardarea" class="col-sm-2 control-label">Opp. tuin</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="location_yardarea" name="location_yardarea">
+                        <p>Oppervlakte dient te worden opgegeven in<code>m<sup>2</sup></code></p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="address_zipcode" class="col-sm-2 control-label">Nieuwbouw</label>
+                    <div class="col-sm-10">
+                        <label class="checkbox-inline">
+                            <input type="radio" value="1" name="location_newbuild"> Ja
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="radio" value="0" name="location_newbuild" checked> Nee
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="address_city" class="col-sm-2 control-label">Energielabel</label>
+                    <div class="col-sm-10">
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="location_energylabel" value="a" checked>
+                                Energie label <?php echo Button::energyLabel("a"); ?>
+                            </label>
+                        </div>
+
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="location_energylabel" value="b">
+                                Energie label <?php echo Button::energyLabel("b"); ?>
+                            </label>
+                        </div>
+
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="location_energylabel" value="c">
+                                Energie label <?php echo Button::energyLabel("c"); ?>
+                            </label>
+                        </div>
+
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="location_energylabel" value="d">
+                                Energie label <?php echo Button::energyLabel("d"); ?>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="location_price" class="col-sm-2 control-label">Prijs</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="location_price" name="location_price">
+                        <p>Bedrag in <em>hele</em> euro's</p>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-sm-6">
+            <fieldset>
+                <legend>Adres</legend>
+                <div class="form-group">
+                    <label for="address_street" class="col-sm-2 control-label">Straat</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="address_street" name="address_street" placeholder="Straatnaam">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="address_housenumber" class="col-sm-2 control-label">Huisnummer</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="address_housenumber" name="address_housenumber" placeholder="Huisnummer inclusief toevoeging">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="address_zipcode" class="col-sm-2 control-label">Postcode</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="address_zipcode" name="address_zipcode">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="address_city" class="col-sm-2 control-label">Plaats</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="address_city" name="address_city">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="address_neighborhood" class="col-sm-2 control-label">Wijk</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="address_neighborhood" name="address_neighborhood">
+                    </div>
+                </div>
+            </fieldset>
+
+
+            <fieldset>
+                <legend>Menu indeling</legend>
+                <div class="form-group">
+                    <label for="menuitem_id" class="col-sm-2 control-label">Categorie</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" name="category">
+                            <?php
+                            chdir(BASE_PATH);
+                            $repo = Aggressiveswallow\Tools\Container::make("genericRepository");
+                            $q = Aggressiveswallow\Tools\Container::make("menuItemDropdownQuery");
+
+                            $categories = $repo->read($q);
+                            unset($categories[0]);
+                            /* @var $categories \Aggressiveswallow\Models\MenuItem[] */
+
+                            foreach ($categories as $category) {
+                                $space = str_repeat("&nbsp;&nbsp;&nbsp;", $category->getDepth() - 1);
+                                $data = base64_encode(gzdeflate(serialize($category)));
+                                printf("<option value=\"%s\">%s%s</option>", $data, $space, $category->getName());
+                            }
+                            ?>
+                        </select>
+                        <p>Selecteer een categorie uit het menu waaronder het product hoort.<br /><strong>N.B.</strong> Items uit een sub categorie worden automatisch meegenomen in de hoofdcategorie weergave.</p>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Foto</legend>
+                <div class="fileinput fileinput-new" data-provides="fileinput">
+                    <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+
+                    </div>
+                    <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                    <div>
+                        <span class="btn btn-default btn-file">
+                            <span class="fileinput-new">Kies foto</span>
+                            <span class="fileinput-exists">Veranderen</span>
+                            <input type="file" name="location_photo">
+                        </span>
+                        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Verwijder</a>
+                    </div>
+                </div>
+            </fieldset>
+
+
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-11 col-sm-1">
+                <button type="submit" class="btn btn-primary" name="submit">Toevoegen</button>
+            </div>
+        </div>
+    </form>
+</div>
+<?php
+include VIEW_PATH . "partials/footer.phtml";

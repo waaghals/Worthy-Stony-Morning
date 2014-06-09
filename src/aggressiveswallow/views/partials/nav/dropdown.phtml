@@ -1,0 +1,24 @@
+<li class="dropdown">
+    <?php
+    $menuLink = "<a href=\"%s\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">%s <b class=\"caret\"></b></a>";
+
+    echo sprintf($menuLink, $navItem->getUri(), $navItem->getName());
+    ?>
+
+    <ul class="dropdown-menu">
+        <?php
+        $regularLink = "<li><a href=\"%s\">%s</a></li>";
+        foreach ($navItem->getChildren() as $childNav):
+            /* @var \Aggressiveswallow\Helpers\NavItem $childNav */
+
+           // if ($childNav->hasChildren()) {
+           //     $t = new \Aggressiveswallow\Tools\Template("partials\nav\subDropdown");
+           //     $t->navItem = $childNav;
+           //     echo $t;
+           //   //  include "subDropdown.phtml";
+           // }
+            echo sprintf($regularLink, $childNav->getUri(), $childNav->getName());
+        endforeach;
+        ?>
+    </ul>
+</li>

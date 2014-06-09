@@ -1,0 +1,18 @@
+<?php
+$link = "<li><a href=\"%s\">%s</a></li>";
+if (isset($breadcrums) && is_array($breadcrums)):
+    ?>
+    <ol class="breadcrumb">
+
+        <?php
+        echo sprintf($link, "/", "Webmakelaar");
+        foreach ($breadcrums as $crum):
+            /* @var $crum \Aggressiveswallow\Models\MenuItem */
+            echo sprintf($link, $crum->getUri(), $crum->getName());
+        endforeach;
+        ?>
+    </ol>
+    <?php
+endif;
+   
+    

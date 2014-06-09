@@ -1,0 +1,62 @@
+<?php
+
+use Aggressiveswallow\Tools\Template;
+
+include VIEW_PATH . "partials/adminHeader.phtml";
+?>
+<h1>Evenementen <small>beheren</small></h1>
+<?php
+if (isset($events)):
+    $li = new Template("partials\adminEventLink");
+    foreach ($events as $event):
+        $li->event = $event;
+        echo $li;
+    endforeach;
+endif;
+?>
+<p><a class="btn btn-primary" href="<?php echo BASE_URL; ?>event/create">Nieuw evenement aanmaken</a></p>
+<hr />
+
+<h1>Pagina's <small>beheren</small></h1>
+<div class="row">
+    <div class="col-md-11">
+        <h3>Homepage</h3>
+    </div>
+    <div class="col-md-1 text-right">
+        <small>
+            <a href = "<?php echo BASE_URL; ?>page\edit\pageName=home">
+                <span class="glyphicon glyphicon-edit"></span>
+            </a>
+        </small>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-11">
+        <h3>Contact</h3>
+    </div>
+    <div class="col-md-1 text-right">
+        <small>
+            <a href = "<?php echo BASE_URL; ?>page\edit\pageName=contact">
+                <span class="glyphicon glyphicon-edit"></span>
+            </a>
+        </small>
+    </div>
+</div>
+<hr />
+
+<h1>Afbeeldingen <small>beheren</small></h1>
+<?php
+if (isset($images)):
+    $item = new Template("partials\adminImageLink");
+    foreach ($images as $image):
+        $item->image = $image;
+        echo $item;
+    endforeach;
+endif;
+?>
+<p><a class="btn btn-primary" href="<?php echo BASE_URL; ?>image/create">Nieuw afbeelding uploaden</a></p>
+
+<?php
+include VIEW_PATH . "partials/footer.phtml";
+?>

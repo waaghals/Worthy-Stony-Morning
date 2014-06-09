@@ -1,0 +1,25 @@
+<?php
+$id = sprintf("collapse%s", md5($event->getId()));
+?>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#<?php echo $id; ?>">
+                <?php echo $event->getTitle(); ?>
+            </a>
+        </h2>
+        <small><?php echo $event->getShortdesc(); ?></small>
+    </div>
+    <div id="<?php echo $id; ?>" class="panel-collapse collapse out">
+        <div class="panel-body">
+            <h3>Omschrijving</h3>
+            <p><?php echo $event->getLongdesc(); ?></p>
+
+            <h3>Aanvangstijd</h3>
+            <p><?php echo $event->getTime(); ?></p>
+
+            <h3>Contact <small>email</small></h3>
+            <p><?php echo $event->getEmail(); ?></p>
+        </div>
+    </div>
+</div>

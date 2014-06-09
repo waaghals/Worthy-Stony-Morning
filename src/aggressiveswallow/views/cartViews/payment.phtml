@@ -1,0 +1,82 @@
+<?php
+
+use Aggressiveswallow\Helpers\LoginHelper as Login;
+
+/* @var $location \Aggressiveswallow\Models\Location */
+
+include VIEW_PATH . "partials/header.phtml";
+?>
+<ol class="breadcrumb">
+    <li><a href="/">Webmakelaar</a></li>
+    <li><a href="/cart/show/">Winkelwagen</a></li>
+    <li><a href="/checkout/payment">Afrekenen</a></li>
+</ol>
+<div class="row">
+    <div class="page-header">
+        <h1>Winkelwagen <small>Afrekenen</small></h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-8">
+        <form class="form-horizontal" role="form" action="/checkout/confirm/">
+            <?php
+            if (!Login::isLoggedIn()):
+                ?>
+                <div class="alert alert-danger fade in">
+                    <h4>Niet ingelogd</h4>
+                    <p>Om verder te gaan dien je eerst in te loggen.</p>
+                    <p>
+                        <a href="/account/login" class="btn btn-danger">Inloggen</a>
+                        <a href="/account/register" class="btn btn-default">Ik heb nog geen account</a>
+                    </p>
+                </div>
+
+                <?php
+            endif;
+            ?>
+            <fieldset>
+                <legend>Gegevens</legend>
+                <div class="form-group">
+                    <label for="telephone" class="col-sm-2 control-label">Telefoon</label>
+                    <div class="col-sm-10">
+                        <input type="tel" class="form-control" id="telephone" name="telephone" placeholder="(+31) 6 123 00 321" <?php echo (Login::isLoggedIn()) ? "" : "disabled"; ?>>
+                        <p>We willen graag uw telefoon nummer weten zodat we uw kunnen bellen om een afspraak te maken voor de sleutel overdracht.</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="iban" class="col-sm-2 control-label"><abbr title="International Bank Account Number">IBAN</abbr></label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="iban" name="iban" placeholder="NL00 RABO 011 220 000" <?php echo (Login::isLoggedIn()) ? "" : "disabled"; ?>>
+                        <p>Uw rekening nummer wordt gebruikt om het bedrag van uw rekening af te schrijven.</p>
+                    </div>
+
+                </div>
+            </fieldset>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary" <?php echo (Login::isLoggedIn()) ? "" : "disabled"; ?>>Volgende stap</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class = "col-xs-6 col-md-4">
+        <div class = "panel panel-default">
+            <div class = "panel-heading">Winkelwagen</div>
+            <div class = "panel-body">
+                <ul>
+                    <?php
+                    /* @var $cart \Aggressiveswallow\Helpers\Cart */
+                    foreach ($cart->getItems() as $item) :
+                        printf("<li>%s</li>", $item->getAddress()->getFullStreetName());
+                    endforeach;
+                    ?>
+                </ul>
+                <p>
+                    <a href = "/cart/show/" class = "btn btn-default">Winkelwagen wijzigen</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<?php
+include VIEW_PATH . "partials/footer.phtml";
