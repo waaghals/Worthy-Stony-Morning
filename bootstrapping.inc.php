@@ -34,7 +34,14 @@ define('BASE_URL', "/", true);
 
 setlocale(LC_ALL, 'nl_NL');
 
+/**
+ * Global confic
+ */
 define("ADMIN_EMAIL", "parberen@student.avans.nl");
+define("DB_USER", "root");
+define("DB_PASS", "");
+define("DB_NAME", "wsm");
+
 
 require SRC_PATH . "Aggressiveswallow" . DS . "tools" . DS . "autoloader.php";
 

@@ -9,7 +9,7 @@ include VIEW_PATH . "partials/header.phtml";
             <?php echo $content; ?>
         </div>
         <div class="col-lg-4">
-            <?php if (isset($images)): ?>
+            <?php if (isset($images) && count($images) > 0): ?>
                 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                     <!-- Indicators -->
                     <ol class="carousel-indicators">
