@@ -44,16 +44,13 @@ include VIEW_PATH . "partials/header.phtml";
     </a>
 </div>
 
-<div class="row">
-    <div class="col-lg-12">
-
-        <?php
-        if (isset($content)):
-            echo $content;
-        endif;
-        ?>
+<?php if (isset($content)): ?>
+    <div class="row">
+        <div class="col-lg-12">
+            <?php echo $content; ?>
+        </div>
     </div>
-</div>
+<?php endif; ?>
 <!-- /.row -->
 
 <?php

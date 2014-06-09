@@ -2,7 +2,7 @@
 
 use WorthyStonyMorning\Helpers\FormHelper as Form;
 
-include VIEW_PATH . "partials/header.phtml";
+include VIEW_PATH . "partials/adminHeader.phtml";
 ?>
 <form role="form" method="post">
 
@@ -18,11 +18,13 @@ include VIEW_PATH . "partials/header.phtml";
     <?php endif; ?>
 
     <input name="content_id" type="hidden" <?php Form::val($data, "content_id"); ?>>
+    <input name="content_page" type="hidden" <?php
+    Form::val($data, "content_page");
+    ?>>
+
     <div class="form-group">
         <label for="content_page">Pagina</label>
-        <input name="content_page" type="email" class="form-control"
-               id="content_page" required="required" disabled="disabled"
-               <?php Form::val($data, "content_page"); ?>>
+        <p class="form-control-static"><?php echo ucfirst($data['content_page']); ?></p>
     </div>
     <div class="form-group">
         <label for="event_longdesc">Inhoud</label>

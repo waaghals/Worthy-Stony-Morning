@@ -30,9 +30,12 @@ class AdminController extends BaseController
     {
         $t = new Template("adminViews/adminOverview");
 
-        $repo      = Container::make("genericRepository");
-        $query     = Container::make("allEventsQuery");
-        $t->events = $repo->read($query);
+        $repo       = Container::make("genericRepository");
+        $eventQuery = Container::make("allEventsQuery");
+        $t->events  = $repo->read($eventQuery);
+
+        $imgQuery  = Container::make("allImagesQuery");
+        $t->images = $repo->read($imgQuery);
 
         return new Response($t);
     }

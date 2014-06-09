@@ -34,6 +34,8 @@ define('BASE_URL', "/", true);
 
 setlocale(LC_ALL, 'nl_NL');
 
+define("ADMIN_EMAIL", "parberen@student.avans.nl");
+
 require SRC_PATH . "Aggressiveswallow" . DS . "tools" . DS . "autoloader.php";
 
 $loader = new Autoloader();

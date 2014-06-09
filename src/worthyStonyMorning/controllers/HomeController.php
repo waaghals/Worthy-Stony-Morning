@@ -19,6 +19,13 @@ class HomeController extends BaseController
     {
         $t            = new Template("homeViews/frontPage");
         $t->pageTitle = "Home";
+
+        $repo  = Container::make("genericRepository");
+        $query = Container::make("singlePageQuery");
+        $query->setPageName("home");
+        $page  = $repo->read($query);
+
+        $t->content = $page->getContent();
         return new Response($t);
     }
 

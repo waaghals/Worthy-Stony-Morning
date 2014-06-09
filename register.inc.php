@@ -17,6 +17,7 @@ use WorthyStonyMorning\Queries\SingleEventQuery;
 use WorthyStonyMorning\Validators\PageValidator;
 use WorthyStonyMorning\Queries\SinglePageQuery;
 use WorthyStonyMorning\Factories\PageFactory;
+use WorthyStonyMorning\Validators\ContactValidator;
 
 // Register the objects
 Container::registerSingleton("db",
@@ -118,6 +119,11 @@ Container::register("singleEventQuery",
 Container::registerSingleton("pageValidator",
                              function() {
     return new PageValidator();
+});
+
+Container::registerSingleton("contactValidator",
+                             function() {
+    return new ContactValidator();
 });
 
 Container::register("singlePageQuery",

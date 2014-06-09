@@ -10,24 +10,22 @@ namespace WorthyStonyMorning\Validators;
 
 use Aggressiveswallow\ValidateInterface;
 
-class EventValidator extends AbstractValidator implements ValidateInterface
+class ContactValidator extends AbstractValidator implements ValidateInterface
 {
 
     public function __construct()
     {
         parent::__construct();
         $this->field_names = array(
-            "event_title"     => "Titel",
-            "event_time"      => "Tijdstip",
-            "event_longdesc"  => "Lange omschrijving",
-            "event_shortdesc" => "Korte omschrijving",
-            "event_email"     => "Email"
+            "contact_email"   => "Verzend e-mail",
+            "contact_name"    => "Naam",
+            "contact_message" => "Bericht"
         );
     }
 
-    protected function performValidation(array $data)
+    protected function performValidation(array $post_data)
     {
-        if (!\filter_var($data["event_email"], FILTER_VALIDATE_EMAIL)) {
+        if (!\filter_var($post_data["contact_email"], FILTER_VALIDATE_EMAIL)) {
             $this->messages[] = "Er is een ongeldig email adres opgegeven.";
         }
     }

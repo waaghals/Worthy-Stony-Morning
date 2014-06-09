@@ -63,7 +63,7 @@ class PageController extends BaseController
             if (!$validator->isValid($post_data)) {
                 $this->errors = $validator->getMessages();
             } else {
-                $this->storeEvent($post_data);
+                $this->storePage($post_data);
 
                 return MessageHelper::success("Pagina", "opgeslagen",
                                               "De pagina is met succes opgeslagen in de database.");
@@ -87,6 +87,14 @@ class PageController extends BaseController
         $t->pageTitle = "Pagina bewerken";
 
         return new Response($t);
+    }
+
+    private function storePage($post_data)
+    {
+        $eventFactory = Container::make("pageFactory");
+        $repo         = Container::make("genericRepository");
+        $page         = $eventFactory->create($post_data);
+        $repo->create($page);
     }
 
 }

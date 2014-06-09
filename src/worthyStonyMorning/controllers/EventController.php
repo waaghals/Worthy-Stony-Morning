@@ -48,8 +48,8 @@ class EventController extends BaseController
     {
         $eventFactory = Container::make("eventFactory");
         $repo         = Container::make("genericRepository");
-        $user         = $eventFactory->create($post_data);
-        $repo->create($user);
+        $event        = $eventFactory->create($post_data);
+        $repo->create($event);
     }
 
     private function showEventForm($post_data = array())

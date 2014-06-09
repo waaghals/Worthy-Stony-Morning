@@ -17,6 +17,8 @@ include VIEW_PATH . "partials/adminHeader.phtml";
     </ul>
 <?php endif; ?>
 <p><a class="btn btn-primary" href="<?php echo BASE_URL; ?>event/create">Nieuw evenement aanmaken</a></p>
+
+
 <h1>Pagina's <small>beheren</small></h1>
 <ul>
     <li>
@@ -36,7 +38,22 @@ include VIEW_PATH . "partials/adminHeader.phtml";
         </small>
     </li>
 </ul>
+
+
 <h1>Afbeeldingen <small>beheren</small></h1>
+<?php if (isset($images)): ?>
+    <ul>
+        <?php
+        $li = new Template("partials\adminImageLink");
+        foreach ($images as $image):
+            $li->image = $image;
+            echo $li;
+        endforeach;
+        ?>
+    </ul>
+<?php endif; ?>
+<p><a class="btn btn-primary" href="<?php echo BASE_URL; ?>event/create">Nieuw afbeelding uploaden</a></p>
+
 <?php
 include VIEW_PATH . "partials/footer.phtml";
 ?>
