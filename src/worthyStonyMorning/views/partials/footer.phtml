@@ -1,3 +1,7 @@
+<?php
+
+use WorthyStonyMorning\Helpers\ValidatorHelper as Validator;
+?>
 <footer>
     <hr />
     <div class="row">
@@ -5,7 +9,7 @@
             <p>Door Patrick</p>
         </div>
         <div class="col-lg-6 text-right">
-            <p>VALIDTOR LINK</p>
+            <p><a href="<?php echo Validator::htmlValidtor(); ?>">HTML5 valid</a></p>
         </div>
     </div>
 </footer>
