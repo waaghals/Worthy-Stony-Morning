@@ -26,7 +26,8 @@ use WorthyStonyMorning\Queries\AllImagesQuery;
 // Register the objects
 Container::registerSingleton("db",
                              function() {
-    return new \PDO("mysql:host=localhost;dbname=" . DB_NAME, DB_USER, DB_PASS,
+    return new \PDO("mysql:host=" . DB_PATH . ";dbname=" . DB_NAME, DB_USER,
+                    DB_PASS,
                     array(
         \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
     ));

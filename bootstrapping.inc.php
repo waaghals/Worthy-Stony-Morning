@@ -41,6 +41,7 @@ define("ADMIN_EMAIL", "parberen@student.avans.nl");
 define("DB_USER", "root");
 define("DB_PASS", "");
 define("DB_NAME", "wsm");
+define("DB_PATH", "localhost");
 
 
 require SRC_PATH . "Aggressiveswallow" . DS . "tools" . DS . "autoloader.php";
