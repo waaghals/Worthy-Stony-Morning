@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Machine: 127.0.0.1
--- Gegenereerd op: 09 jun 2014 om 16:12
+-- Gegenereerd op: 09 jun 2014 om 16:21
 -- Serverversie: 5.6.16
 -- PHP-versie: 5.5.9
 
@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `event` (
   `longdesc` text NOT NULL,
   `email` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Gegevens worden uitgevoerd voor tabel `event`
@@ -89,7 +89,11 @@ CREATE TABLE IF NOT EXISTS `event` (
 
 INSERT INTO `event` (`id`, `title`, `time`, `shortdesc`, `longdesc`, `email`) VALUES
 (4, 'Panda''s uitzetten', '2014-08-06 13:00:00', 'Uit zetten van panda''s terug in de natuur', 'Alle panda''s zijn inmiddels op geknapt en kunnen weer vrijgelaten worden in de natuur.\r\nHet WWF zal de panda''s gaat de panda''s vrijlaten op een natuur reservaat in China.', 'parberen@student.avans.nl'),
-(5, 'Zeehondjes saien', '2014-06-08 12:00:00', 'Aaien van tamme zeehondjes', 'Heb je altijd al zeehondjes willen knuffelen?\r\nHet WWF organiseert een open dag in het zeehonden opvang centrum.\r\n\r\nDus kom ook en krijg een kans om een zeehondje te aaien!', 'parberen@student.avans.nl');
+(5, 'Zeehondjes saien', '2014-06-08 12:00:00', 'Aaien van tamme zeehondjes', 'Heb je altijd al zeehondjes willen knuffelen?\r\nHet WWF organiseert een open dag in het zeehonden opvang centrum.\r\n\r\nDus kom ook en krijg een kans om een zeehondje te aaien!', 'parberen@student.avans.nl'),
+(6, 'Seastars', '2014-08-13 12:30:00', 'Word een ster voor de zee en help mee!', 'Onze oceanen zijn in nood. Ze worden wereldwijd bedreigd door overbevissing, vervuiling en klimaatverandering. Daarom hebben ze onze bescherming nodig, zodat het leven zich weer kan herstellen en onze wereld in balans blijft.', 'parberen@student.avans.nl'),
+(7, 'Earth hour', '2014-03-29 18:00:00', 'Een uurtje zonder licht', 'Met Earth Hour laten miljoenen mensen en duizenden organisaties wereldwijd zien dat zij het klimaat belangrijk vinden, met ÃƒÂ©ÃƒÂ©n simpel gebaar: gedurende ÃƒÂ©ÃƒÂ©n uur het licht uitdoen. Earth Hour is een groeiende internationale beweging, die laat zien dat iedereen een positieve bijdrage kan leveren aan het beschermen van onze toekomst en die van volgende generaties. ', 'parberen@student.avans.nl'),
+(8, 'Earth hour', '2015-03-28 18:00:00', 'Een uur lang zonder licht', 'Met Earth Hour laten miljoenen mensen en duizenden organisaties wereldwijd zien dat zij het klimaat belangrijk vinden, met ÃƒÂ©ÃƒÂ©n simpel gebaar: gedurende ÃƒÂ©ÃƒÂ©n uur het licht uitdoen. Earth Hour is een groeiende internationale beweging, die laat zien dat iedereen een positieve bijdrage kan leveren aan het beschermen van onze toekomst en die van volgende generaties. ', 'parberen@student.avans.nl'),
+(9, 'Help de ijsbeer', '2014-12-03 00:00:00', 'Wil jij de ijsbeer helpen? Teken dan uiterlijk 3 december de petitie!', 'Op de komende ijsbeertop van 4-6 december in Moskou komen  vertegenwoordigers van alle Arctische landen bij elkaar om de toekomst van de ijsbeer te bepalen.\r\n\r\n<strong>HÃƒÂ©t moment om ze te laten zien dat het leefgebied van de ijsbeer goed beschermd moet worden.</strong>\r\n\r\nHet WNF wil met zoveel mogelijk stemmen de leiders vragen om: \r\n<ul>\r\n<li>Een nieuw beschermingsplan te ontwikkelen dat in 2015 van start kan gaan;</li>\r\n<li>Meer onderzoek te doen naar ijsbeerpopulaties en leefgebieden;</li>\r\n<li>Ook in de toekomst samen te werken met de lokale bevolking, internationale gemeenschappen, bedrijven en organisaties om de bescherming van de ijsbeer mogelijk te maken en te waarborgen.</li></ul>', 'parberen@student.avans.nl');
 
 -- --------------------------------------------------------
 
@@ -101,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `image` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `path` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Gegevens worden uitgevoerd voor tabel `image`
@@ -110,7 +114,8 @@ CREATE TABLE IF NOT EXISTS `image` (
 INSERT INTO `image` (`id`, `path`) VALUES
 (10, '9c3dcb1f9185a314ea25d51aed3b5881b32f420c'),
 (11, '3b15be84aff20b322a93c0b9aaa62e25ad33b4b4'),
-(12, 'df7be9dc4f467187783aca68c7ce98e4df2172d0');
+(12, 'df7be9dc4f467187783aca68c7ce98e4df2172d0'),
+(13, '54c2f1a1eb6f12d681a5c7078421a5500cee02ad');
 
 -- --------------------------------------------------------
 
